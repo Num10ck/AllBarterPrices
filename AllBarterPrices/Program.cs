@@ -15,7 +15,7 @@ namespace AllBarterPrices
 				foreach (Item item in items)
 				{
 					fileStream.WriteLine(string.Join(";", lines));
-					lines = [item.Name, item.Price.ToString()];
+					lines = [string.Concat(item.Name, item.Location == Location.Special ? " (Любеч)" : string.Empty), item.Price.ToString()];
 				}
 			}
 		}

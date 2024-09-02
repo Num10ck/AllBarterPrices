@@ -43,6 +43,7 @@ namespace AllBarterPrices.Source.Database
 
 			string name = string.Empty;
 			int price = 0;
+			Location location = Location.None;
 
 			foreach (SettlementRecipes settlementRecipes in _settlements)
 			{
@@ -53,21 +54,23 @@ namespace AllBarterPrices.Source.Database
 						continue;
 					}
 
-					name = _listing.Where(v => SanitizeData(v.Data) == recipe.Item).First().Name.Lines.Ru;
-
 					foreach (Offer offer in recipe.Offers)
 					{
+						name = _listing.Where(v => SanitizeData(v.Data) == recipe.Item).First().Name.Lines.Ru; ;
+						price = 0;
+						location = Location.None;
 						foreach (DbBarterItem dbBarterItem in offer.RequiredItems)
 						{
 							price += ItemStatic.TryGetResourcePrice(dbBarterItem.Identifier) * dbBarterItem.Amount;
+
+							if (location != Location.Special && ItemStatic.LyubechResources.ContainsKey(dbBarterItem.Identifier))
+							{
+								location = Location.Special;
+							}
 						}
+						temp.Add(recipe.Item);
+						items.Add(new(name, price, location));
 					}
-
-					temp.Add(recipe.Item);
-					items.Add(new(name, price));
-
-					name = string.Empty;
-					price = 0;
 				}
 			}
 			return items;

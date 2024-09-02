@@ -38,6 +38,18 @@ namespace AllBarterPrices.Source
 		};
 
 		/// <summary>
+		/// Collection of Lyubech resources identifiers and their prices. Readonly.
+		/// </summary>
+		public readonly static IReadOnlyDictionary<string, int> LyubechResources = new Dictionary<string, int>()
+		{
+			{ "21365", 15 },
+			{ "34305", 12 },
+			{ "6o7m0", 86 },
+			{ "9d1qy", 240 },
+			{ "19402", 200 },
+		};
+
+		/// <summary>
 		/// Recieves resource price by given identifier.
 		/// </summary>
 		/// <param name="identifier">Resource identifier</param>

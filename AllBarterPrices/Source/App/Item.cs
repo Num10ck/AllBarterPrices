@@ -21,10 +21,16 @@ namespace AllBarterPrices.Source.App
         /// </summary>
 		public int Price { get; init; }
 
-        public Item(string name, int price)
+        /// <summary>
+        /// Recipe number.
+        /// </summary>
+        public Location Location { get; init; }   
+
+        public Item(string name, int price, Location location)
         {
             Name = name; 
             Price = price;
+            Location = location;
         }
     }
 }
